@@ -35,3 +35,14 @@ Integer result = futureResult.get();
 ```
 
 `futureResult.get()` blocks (waits) until the Callable finishes and gives you the value.
+
+Future with Timeout (Avoid Hanging)
+```java
+try {
+    String result = future.get(3, TimeUnit.SECONDS);
+    System.out.println("Got: " + result);
+} catch (TimeoutException e) {
+    System.out.println("Task took too long!");
+    future.cancel(true); // Interrupt if running
+}
+```
